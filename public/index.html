@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html data-ng-app="WhereAmI">
+	<head>
+		<title>Where Am I</title>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+						<h1>Where Am I</h1>
+						<div ng-view></div>
+				</div>
+			</div>
+		</div>
+
+ 		<!-- Dependency library -->
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.7/angular-route.js"></script>
+
+		<!-- UI library -->
+	    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	    <!-- Angular -->
+	    <script src="app/main.js"></script>
+        <script src="app/controllers/controller.js"></script>
+        <script src="app/services/dataService.js"></script>
+	</body>
+</html>

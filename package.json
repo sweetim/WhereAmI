@@ -1,0 +1,13 @@
+{
+	"name": "WhereAmI",
+	"description": "A realtime geolocation based application",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "4.x",
+		"mongoose": "x",
+		"morgan": "x",
+		"passport": "x",
+		"passport-google": "x"
+	}
+}
