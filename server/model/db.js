@@ -1,9 +1,29 @@
 var mongoose = require('mongoose');
 
-var dbURI = "mongodb://localhost:27017";
+var dbURI = "mongodb://localhost:27017/whereami";
 
 mongoose.connect(dbURI);
-console.log(dbURI);
+
+var userSchema = new mongoose.Schema({
+	name: String,
+	email: { type: String, unique:true },
+	createdOn: { type: Date, default: Date.now },
+	modifiedOn: Date,
+	lastLogin: Date
+});
+
+var projectSchema = new mongoose.Schema({
+	projectName: String,
+	createdOn: { type:Date, default: Date.now},
+	modifiedOn: Date,
+	createdBy: String,
+	contributors: String,
+	tasks: String
+});
+
+mongoose.model('User', userSchema);
+mongoose.model('Project', projectSchema);
+
 
 mongoose.connection.on('connected', function() {
 	console.log('mongoose connected ' + dbURI);

@@ -7,6 +7,7 @@
 		"express": "4.x",
 		"mongoose": "x",
 		"morgan": "x",
+		"body-parser": "x",
 		"passport": "x",
 		"passport-google": "x"
 	}

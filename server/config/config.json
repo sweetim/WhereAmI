@@ -1,6 +1,6 @@
 {
 	"port": 3000,
-	"dbURI": "mongodb://localhost:27017",
+	"dbURI": "mongodb://localhost:27017/whereami",
 	"dbUser": "admin",
 	"dbPass": "planet"
 }
