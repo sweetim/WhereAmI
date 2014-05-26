@@ -29,5 +29,17 @@
 	    <script src="app/app.js"></script>
         <script src="app/controllers/controller.js"></script>
         <script src="app/services/dataService.js"></script>
+
+		<script src="/socket.io/socket.io.js"></script>
+
+        <script>
+        	var socket = io.connect('http://localhost:3000');
+        	socket.on('news', function(data) {
+        		console.log(data);
+        		socket.emit('my other event', {
+        			my: 'data'
+        		});
+        	});
+        </script>
 	</body>
 </html>

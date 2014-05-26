@@ -8,6 +8,8 @@
 		"mongoose": "x",
 		"morgan": "x",
 		"body-parser": "x",
+		"response-time": "x",
+		"socket.io": "x",
 		"passport": "x",
 		"passport-google": "x"
 	}

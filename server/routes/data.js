@@ -2,9 +2,23 @@ var mongoose = require('mongoose');
 var GPSData = mongoose.model('GPSData');
 
 exports.getData = function(req, res) {
-	res.json({
-		title: 'hello'
-	});	
+	GPSData.find().sort({
+		timestamp: -1
+	}).limit(1).exec(function(err, data) {
+		if (err) {
+			res.json({
+				result: true,
+				err: err,
+				data: data
+			});
+		} else {
+			res.json({
+				result: true,
+				err: err,
+				data: data
+			});
+		}
+	});
 };
 
 exports.addData = function(req, res) {

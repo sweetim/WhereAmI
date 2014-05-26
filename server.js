@@ -3,18 +3,18 @@ var http = require('http');
 var express = require('express'),
 	db = require('./server/model/db.js'),
 	routes = require('./server/routes'),
+	config = require('./server/config/config.json'),
+	io = require('socket.io'),
 	bodyParser = require('body-parser'),
+	responseTime = require('response-time'),
 	morgan = require('morgan'),
 	fs = require('fs');
-
 
 var app = express();
 
 app.use(express.static('./public'));
+app.use(responseTime());
 app.use(bodyParser());
-
-var config = require('./server/config/config.json');
-
 app.use(morgan({
 	format: 'short',
 	stream: fs.createWriteStream('app.log', {
@@ -22,11 +22,21 @@ app.use(morgan({
 	})
 }));
 
-app.use(function(req, res, next) {
-	console.log('%s %s', req.method, req.url);
-	next();
+var server = http.createServer(app).listen(config.port, function() {
+	console.log('App started on port ' + config.port);
 });
 
+io = io.listen(server);
+
+io.sockets.on('connection', function(socket) {
+	socket.emit('news', {
+		hello: 'world'
+	});
+	
+	socket.on('my other event', function(data) {
+		console.log(data);
+	});
+});
 
 app.use('/api', function(req, res, next) {
 	console.log('here');
@@ -60,6 +70,13 @@ app.get('/data', routes.data.getData);
 app.post('/data', routes.data.addData);
 app.get('/data/:id', routes.data.getDataId);
 
-var server = http.createServer(app).listen(config.port, function() {
-	console.log('App started on port ' + config.port);
+
+app.get('/test', function(req, res) {
+	io.sockets.emit('news', {
+		hello: 'here'
+	});
+	res.json({
+		title: 'hello'
+	});
 });
+
