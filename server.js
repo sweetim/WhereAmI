@@ -22,6 +22,17 @@ app.use(morgan({
 	})
 }));
 
+app.use(function(req, res, next) {
+	console.log('%s %s', req.method, req.url);
+	next();
+});
+
+
+app.use('/api', function(req, res, next) {
+	console.log('here');
+	next();
+});
+
 //Routes for user
 app.get('/user', routes.user.index);
 app.get('/user/new', routes.user.create);
@@ -44,7 +55,9 @@ app.post('/project/edit/:id', routes.project.doEdit);
 app.get('/project/delete/:id', routes.project.confirmDelete);
 app.post('/project/delete/:id', routes.project.doDelete);*/
 
+//Routes for gpsData
 app.get('/data', routes.data.getData);
+app.post('/data', routes.data.addData);
 app.get('/data/:id', routes.data.getDataId);
 
 var server = http.createServer(app).listen(config.port, function() {

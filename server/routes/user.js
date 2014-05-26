@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 exports.index = function(req, res) {
-	
+	res.send('here index');
 };
 
 exports.create = function(req, res) {

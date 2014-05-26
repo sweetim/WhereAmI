@@ -1,0 +1,8 @@
+127.0.0.1 - GET /data/alis HTTP/1.1 200 36 - 11.804 ms
+127.0.0.1 - GET /data/alis HTTP/1.1 200 36 - 2.300 ms
+127.0.0.1 - GET /data/hello HTTP/1.1 200 949 - 9.146 ms
+127.0.0.1 - GET /data/hello HTTP/1.1 200 949 - 6.685 ms
+127.0.0.1 - GET /data/ HTTP/1.1 200 17 - 1.179 ms
+127.0.0.1 - GET /data/ HTTP/1.1 200 17 - 0.888 ms
+127.0.0.1 - GET /data/ HTTP/1.1 304 - - 0.642 ms
+127.0.0.1 - GET /favicon.ico HTTP/1.1 404 - - 0.889 ms

@@ -21,8 +21,18 @@ var projectSchema = new mongoose.Schema({
 	tasks: String
 });
 
+var gpsSchema = new mongoose.Schema({
+	user: String,
+	timestamp: Number,
+	location: {
+		test: String,
+		coordinates: [Number, Number]
+	}
+});
+
 mongoose.model('User', userSchema);
 mongoose.model('Project', projectSchema);
+mongoose.model('GPSData', gpsSchema);
 
 
 mongoose.connection.on('connected', function() {
