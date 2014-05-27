@@ -30,7 +30,7 @@ exports.addData = function(req, res) {
 			'coordinates': [req.body.long, req.body.lat]
 		}
 	};
-
+	console.log("here");
 	GPSData.create(gpsData, function(err, data) {
 		if (err) {
 			res.json({

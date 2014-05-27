@@ -4,5 +4,7 @@
     <string name="app_name">WhereAmI</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="get">Get</string>
+    <string name="send">Send</string>
 
 </resources>

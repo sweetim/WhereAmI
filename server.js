@@ -80,3 +80,10 @@ app.get('/test', function(req, res) {
 	});
 });
 
+app.post('/android', function(req, res) {
+	var data = req.body.timestamp;
+	console.log(req.body);
+	console.log(data);
+	res.json(data);
+});
+
