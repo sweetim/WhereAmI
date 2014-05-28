@@ -1,4 +1,4 @@
-var http = require('http');
+var http = require('https');
 
 var express = require('express'),
 	db = require('./server/model/db.js'),
@@ -22,7 +22,15 @@ app.use(morgan({
 	})
 }));
 
-var server = http.createServer(app).listen(config.port, function() {
+var privateKey = fs.readFileSync('whereami-key.pem', 'utf8');
+var certificate = fs.readFileSync('whereami-cert.pem', 'utf8');
+
+var options = {
+	key: privateKey,
+	cert: certificate
+};
+
+var server = http.createServer(options, app).listen(config.port, function() {
 	console.log('App started on port ' + config.port);
 });
 
