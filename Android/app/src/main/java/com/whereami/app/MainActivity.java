@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,11 +33,14 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,20 +78,20 @@ public class MainActivity extends Activity{
         button_connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SendJSONWeb().execute("http://zmp-cloud3.cloudapp.net:50001/data");
+                new SendJSONWeb().execute("http://192.168.1.33:3000/android");
             }
         });
 
         button_get.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONWebService().execute("http://zmp-cloud3.cloudapp.net:50001/data");
+                new JSONWebService().execute("http://192.168.1.33:3000/data");
             }
         });
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        handler.postDelayed(runnable, 100);
+        //handler.postDelayed(runnable, 100);
     }
 
     private void timerSend() {
@@ -107,7 +112,7 @@ public class MainActivity extends Activity{
             timestamp = System.currentTimeMillis();
             textView_time.setText(Long.toString(timestamp));
 
-            new SendJSONWeb().execute("http://zmp-cloud3.cloudapp.net:50001/test");
+            new SendJSONWeb().execute("http://192.168.1.33:3000/test");
 
             handler.postDelayed(this, 100);
         }
@@ -186,21 +191,25 @@ public class MainActivity extends Activity{
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 conn.connect();
 
-                JSONObject jsonParam = new JSONObject();
+                /*JSONObject jsonParam = new JSONObject();
                 jsonParam.put("user", "hello");
                 jsonParam.put("timestamp", timestamp);
                 jsonParam.put("long", gps[1]);
-                jsonParam.put("lat", gps[0]);
+                jsonParam.put("lat", gps[0]);*/
+
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("timestamp", "123"));
+
 
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(jsonParam.toString());
+                writer.write(getQuery(params));
                 writer.close();
                 os.close();
 
@@ -221,13 +230,31 @@ public class MainActivity extends Activity{
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             } finally {
                 conn.disconnect();
             }
 
             return null;
+        }
+
+        private String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException
+        {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            for (NameValuePair pair : params) {
+                if (first) {
+                    first = false;
+                } else {
+                    result.append("&");
+                }
+
+                result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
+            }
+
+            return result.toString();
         }
 
         private String readData(InputStream stream, int len) throws IOException {

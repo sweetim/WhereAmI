@@ -1,0 +1,8 @@
+192.168.1.22 - POST /data HTTP/1.1 500 1109 - 18.154 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 3.214 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 1.284 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 1.245 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 0.769 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 1.927 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 0.956 ms
+192.168.1.22 - POST /android HTTP/1.1 200 5 - 1.661 ms
