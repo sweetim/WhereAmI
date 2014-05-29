@@ -1,40 +1,60 @@
-var http = require('https');
+var http = require('http');
 
 var express = require('express'),
 	db = require('./server/model/db.js'),
 	routes = require('./server/routes'),
-	config = require('./server/config/config.json'),
 	io = require('socket.io'),
 	bodyParser = require('body-parser'),
 	responseTime = require('response-time'),
+	errorHandler = require('errorhandler'),
 	morgan = require('morgan'),
-	fs = require('fs');
+	fs = require('fs'),
+	passport = require('passport'),
+	googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var app = express();
+
+var	config = require('./server/config/config.json')[app.get('env')];
+
+if (app.get('env') === 'development') {
+	app.use(errorHandler());
+	app.use(morgan({
+		format: 'dev',
+		stream: fs.createWriteStream('app.log', {
+			'flags': 'w'
+		})
+	}));
+} else {
+	app.use(morgan({
+		format: 'short',
+		stream: fs.createWriteStream('app.log', {
+			'flags': 'w'
+		})
+	}));
+}
 
 app.use(express.static('./public'));
 app.use(responseTime());
 app.use(bodyParser());
-app.use(morgan({
-	format: 'short',
-	stream: fs.createWriteStream('app.log', {
-		'flags': 'w'
-	})
-}));
 
-var privateKey = fs.readFileSync('whereami-key.pem', 'utf8');
-var certificate = fs.readFileSync('whereami-cert.pem', 'utf8');
+
+var privateKey = fs.readFileSync('./ssl/whereami-key.pem', 'utf8');
+var certificate = fs.readFileSync('./ssl/whereami-cert.pem', 'utf8');
 
 var options = {
 	key: privateKey,
 	cert: certificate
 };
 
-var server = http.createServer(options, app).listen(config.port, function() {
-	console.log('App started on port ' + config.port);
+/*var server = http.createServer(app).listen(config.port, function() {
+	console.log('App started on port ' + config.port + ' in ' + app.get('env') + ' mode');
+});*/
+
+var server = app.listen(config.port, function() {
+	console.log('App started on port ' + config.port + ' in ' + app.get('env') + ' mode');
 });
 
-io = io.listen(server);
+/*io = io.listen(server);
 
 io.sockets.on('connection', function(socket) {
 	socket.emit('news', {
@@ -44,12 +64,31 @@ io.sockets.on('connection', function(socket) {
 	socket.on('my other event', function(data) {
 		console.log(data);
 	});
-});
+});*/
 
 app.use('/api', function(req, res, next) {
 	console.log('here');
 	next();
 });
+
+passport.use(new googleStrategy({
+		clientID: "384107108130-8p0glbvghsboj8l1up4od6kj907rpkng.apps.googleusercontent.com",
+    	clientSecret: "hPccySxsxQ9Xyn360A4RAe6F",
+		callbackURL: "http://localhost:3000/"
+	}, function(identifier, profile, done) {
+		console.log("here");
+		console.log(identifier);	
+		console.log(profile);
+		console.log(done);
+	}
+));
+
+app.get('/google', passport.authenticate('google', {scope: 'https://www.googleapis.com/auth/plus.login'}));
+app.get('/google/return', passport.authenticate('google' , {
+	successRedirect: 'http://localhost:3000/data',
+	failureRedirect: 'http://localhost:3000/android'
+}));
+
 
 //Routes for user
 app.get('/user', routes.user.index);
@@ -79,19 +118,19 @@ app.post('/data', routes.data.addData);
 app.get('/data/:id', routes.data.getDataId);
 
 
-app.get('/test', function(req, res) {
+/*app.get('/test', function(req, res) {
 	io.sockets.emit('news', {
 		hello: 'here'
 	});
 	res.json({
 		title: 'hello'
 	});
-});
+});*/
 
-app.post('/android', function(req, res) {
+app.get('/android', function(req, res) {
 	var data = req.body.timestamp;
 	console.log(req.body);
 	console.log(data);
-	res.json(data);
+	res.json("heel");
 });
 

@@ -1,6 +1,16 @@
 {
-	"port": 3000,
-	"dbURI": "mongodb://localhost:27017/whereami",
-	"dbUser": "admin",
-	"dbPass": "planet"
+	"development": {
+		"port": 3000,
+		"dbURI": "mongodb://localhost:27017/whereami",
+		"dbUser": "admin",
+		"dbPass": "planet",
+		"cliendID": "384107108130-h37jpquvm1hnkuvavj8ektf71tkf4604.apps.googleusercontent.com",
+		"clientSecret": "bDxqSARYqA-TyJdNp3uAjRTC"
+	},
+	"production": {
+		"port": 50001,
+		"dbURI": "mongodb://admin:planet@ds045089.mongolab.com:45089/whereami",
+		"dbUser": "admin",
+		"dbPass": "planet"
+	}
 }

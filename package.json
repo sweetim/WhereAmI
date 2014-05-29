@@ -9,8 +9,10 @@
 		"morgan": "x",
 		"body-parser": "x",
 		"response-time": "x",
+		"errorhandler": "x",
 		"socket.io": "x",
+		"bcrypt-nodejs": "x",
 		"passport": "x",
-		"passport-google": "x"
+		"passport-google-oauth": "x"
 	}
 }
