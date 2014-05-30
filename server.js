@@ -10,7 +10,8 @@ var express = require('express'),
 	morgan = require('morgan'),
 	fs = require('fs'),
 	passport = require('passport'),
-	googleStrategy = require('passport-google-oauth').OAuth2Strategy;
+	googleStrategy = require('passport-google-oauth').OAuth2Strategy,
+	multer = require('multer');
 
 var app = express();
 
@@ -37,6 +38,20 @@ app.use(express.static('./public'));
 app.use(responseTime());
 app.use(bodyParser());
 
+app.use(multer({
+	dest: './uploads/',
+	onFileUploadStart: function(file) {
+		console.log({
+			name: file.name,
+			fieldname: file.fieldname,
+			oriname: file.originalname,
+			enco: file.encoding,
+			mime: file.mimetype,
+			path: file.path,
+			ext: file.extension
+		});
+	}
+}));
 
 var privateKey = fs.readFileSync('./ssl/whereami-key.pem', 'utf8');
 var certificate = fs.readFileSync('./ssl/whereami-cert.pem', 'utf8');
@@ -132,5 +147,13 @@ app.get('/android', function(req, res) {
 	console.log(req.body);
 	console.log(data);
 	res.json("heel");
+});
+
+
+
+app.post('/upload', function(req, res) {
+	res.json({
+		status: 'done'
+	})
 });
 

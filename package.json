@@ -13,6 +13,7 @@
 		"socket.io": "x",
 		"bcrypt-nodejs": "x",
 		"passport": "x",
-		"passport-google-oauth": "x"
+		"passport-google-oauth": "x",
+		"multer": "x"
 	}
 }

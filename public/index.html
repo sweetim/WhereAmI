@@ -13,6 +13,10 @@
 				<div class="col-sm-12">
 						<h1>Where Am I</h1>
 						<a href="/google">Sign In with Google</a>
+						<form action="http://localhost:3000/data" method="post" enctype="multipart/form-data">
+							<input type="file" name="file" id="file"><br>
+							<input type="submit" name="submit" value="Submit">
+						</form>
 						<div ng-view></div>
 				</div>
 			</div>
