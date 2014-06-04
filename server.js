@@ -104,6 +104,10 @@ app.get('/google/return', passport.authenticate('google' , {
 	failureRedirect: 'http://localhost:3000/android'
 }));
 
+//Routes for authentication
+app.post('/auth/login', routes.auth.login);
+app.post('/auth/register', routes.auth.register);
+
 
 //Routes for user
 app.get('/user', routes.user.index);

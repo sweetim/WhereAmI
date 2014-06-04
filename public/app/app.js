@@ -12,5 +12,10 @@ app.config(function($routeProvider) {
 			controller: 'MapController',
 			templateUrl: 'app/views/login.html'
 		})
+		.when('/register', 
+		{
+			controller: 'MapController',
+			templateUrl: 'app/views/register.html'
+		})
 		.otherwise({redirectTo: '/'});
 });

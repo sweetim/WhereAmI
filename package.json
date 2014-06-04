@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "WhereAmI",
   "description": "A realtime geolocation based application",
   "version": "0.0.1",
@@ -8,16 +7,18 @@
     "name": "Tim"
   },
   "dependencies": {
+    "bcrypt-nodejs": "x",
+    "body-parser": "x",
+    "crypto": "0.0.3",
+    "errorhandler": "x",
     "express": "4.x",
     "mongoose": "x",
     "morgan": "x",
-    "body-parser": "x",
-    "response-time": "x",
-    "errorhandler": "x",
-    "socket.io": "x",
-    "bcrypt-nodejs": "x",
+    "multer": "^0.1.0",
     "passport": "x",
-    "passport-google-oauth": "x"
+    "passport-google-oauth": "x",
+    "response-time": "x",
+    "socket.io": "x"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -25,23 +26,3 @@
     "grunt-contrib-uglify": "^0.4.0"
   }
 }
-=======
-	"name": "WhereAmI",
-	"description": "A realtime geolocation based application",
-	"version": "0.0.1",
-	"private": true,
-	"dependencies": {
-		"express": "4.x",
-		"mongoose": "x",
-		"morgan": "x",
-		"body-parser": "x",
-		"response-time": "x",
-		"errorhandler": "x",
-		"socket.io": "x",
-		"bcrypt-nodejs": "x",
-		"passport": "x",
-		"passport-google-oauth": "x",
-		"multer": "x"
-	}
-}
->>>>>>> e77bd392f00ce564a609bb0f1f2bd95b7b739823
