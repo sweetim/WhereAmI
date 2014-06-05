@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 
 var User2Schema = new mongoose.Schema({
-	username: {
+	userName: {
 		type: String,
 		unique: true,
 		required: true
@@ -34,22 +34,27 @@ var User2Schema = new mongoose.Schema({
 });
 
 User2Schema.methods.encryptPassword = function(password) {
-	//return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-	return "heelo";
+	return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+};
+
+User2Schema.methods.checkPassword = function(password) {
+	return this.encryptPassword(password) === this.hashedPassword;
 };
 
 User2Schema.virtual('password')
 	.set(function(password) {
 		this._plainPassword = password;
 		this.salt = crypto.randomBytes(128).toString('base64');
-		this.hashedPassword = this.encryptPassword(password);
+		this.hashPassword = this.encryptPassword(password);
 	})
 	.get(function() {
 		return this._plainPassword;
 	});
 
-User2Schema.methods.checkPassword = function(password) {
-	return this.encryptPassword(password) === this.hashedPassword;
-};
+User2Schema.virtual('userId')
+	.get(function() {
+		return this.id;
+	});
 
-module.exports.UserModel = mongoose.model('User2Schema', User2Schema);
+mongoose.model('User2', User2Schema);
+
