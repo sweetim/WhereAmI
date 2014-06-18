@@ -11,13 +11,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-						<h1>Where Am I</h1>
-						<a href="/google">Sign In with Google</a>
-						<form action="http://localhost:3000/data" method="post" enctype="multipart/form-data">
-							<input type="file" name="file" id="file"><br>
-							<input type="submit" name="submit" value="Submit">
-						</form>
-						<div ng-view></div>
+					<h1>Where Am I</h1>						
+					<div ng-view></div>
 				</div>
 			</div>
 		</div>
@@ -35,6 +30,8 @@
         <script src="app/controllers/controller.js"></script>
         <script src="app/services/dataService.js"></script>
 
+    	<!-- Google Plus API -->
+		<script src = 'https://apis.google.com/js/client:plusone.js'></script>
 		<!--<script src="/socket.io/socket.io.js"></script>
 
         <script>
@@ -45,6 +42,6 @@
         			my: 'data'
         		});
         	});
-        </script>-->
+        </script>-->        
 	</body>
 </html>

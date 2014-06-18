@@ -28,6 +28,8 @@ exports.register = function(req, res) {
 			password: req.body.password
 		});
 
+		console.log(newUser.hashPassword);
+
 		newUser.save(function(err, user) {
 			if(!err)  {
 				res.json({

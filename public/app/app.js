@@ -4,12 +4,12 @@ app.config(function($routeProvider) {
 	$routeProvider
 		.when('/', 
 		{
-			controller: 'MapController',
-			templateUrl: 'app/views/map.html'
+			controller: 'AuthController',
+			templateUrl: 'app/views/login.html'
 		})
 		.when('/login',
 		{
-			controller: 'MapController',
+			controller: 'AuthController',
 			templateUrl: 'app/views/login.html'
 		})
 		.when('/register', 
