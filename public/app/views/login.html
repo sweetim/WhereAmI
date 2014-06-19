@@ -25,10 +25,12 @@
 			<a href="#/register">Create new account</a>
 		</div>
 		<div class="col-sm-6">
-			<span id="signin" data-ng-show="immediateFailed">
-				<span id="myGsignin"></span>
-			</span>
+			<div data-ng-show="loginButtonStatus">
+				<div id="googleSignIn"></div>
+			</div>
+
 			<button class="btn btn-info" data-ng-click="signOut()">Sign Out</button>
+			<button data-ng-click="getProfile()">Profile</button>
 		</div>
 	</div>
 </div>

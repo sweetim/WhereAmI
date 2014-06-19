@@ -11,7 +11,9 @@ var express = require('express'),
 	fs = require('fs'),
 	passport = require('passport'),
 	googleStrategy = require('passport-google-oauth').OAuth2Strategy,
-	multer = require('multer');
+	multer = require('multer'),
+	session = require('express-session'),
+	cookieParser = require('cookie-pareser');
 
 var app = express();
 
@@ -37,6 +39,8 @@ if (app.get('env') === 'development') {
 app.use(express.static('./public'));
 app.use(responseTime());
 app.use(bodyParser());
+app.use(cookieParser('where am i cookies'));
+app.use(session());
 
 app.use(multer({
 	dest: './uploads/',
